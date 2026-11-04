@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand Face-Off</title>
+<style>
+:root{--bg:#070914;--glass:rgba(255,255,255,.06);--bd:rgba(255,255,255,.12);--tx:#eef0ff;--mu:#9aa1c9;--a:#7c8cff;--b:#ff7a59;--c:#2de2c5;--g:#3ddc84;--am:#ffc247;--r:#ff5d73}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 "Segoe UI",system-ui,sans-serif;color:var(--tx);background:var(--bg);min-height:100vh;overflow-x:hidden}
+/* ===== animated aurora + grid background ===== */
+.bg{position:fixed;inset:0;z-index:-2;overflow:hidden}
+.bg i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.45;animation:float 22s ease-in-out infinite}
+.bg i:nth-child(1){background:#4f46e5;left:-15vmax;top:-15vmax}
+.bg i:nth-child(2){background:#ff5d73;right:-20vmax;top:10vmax;animation-delay:-7s;opacity:.3}
+.bg i:nth-child(3){background:#12c6a8;left:25vw;bottom:-28vmax;animation-delay:-13s;opacity:.3}
+@keyframes float{50%{transform:translate(6vmax,5vmax) scale(1.15)}}
+.grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:48px 48px;opacity:.25;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%)}
+/* ===== floating glass rail navigation ===== */
+nav{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:10;width:68px;padding:14px 10px;border-radius:26px;background:var(--glass);border:1px solid var(--bd);backdrop-filter:blur(18px);box-shadow:0 10px 50px rgba(0,0,0,.5),inset 0 0 30px rgba(124,140,255,.08);transition:width .35s cubic-bezier(.2,.8,.2,1);overflow:hidden}
+nav:hover{width:210px}
+.logo{display:flex;align-items:center;gap:12px;padding:4px 8px 14px;white-space:nowrap;font-weight:800;letter-spacing:.5px}
+.logo span:first-child{font-size:22px;filter:drop-shadow(0 0 8px var(--c))}
+.item{position:relative;display:flex;align-items:center;gap:14px;padding:11px 12px;margin:4px 0;border-radius:16px;color:var(--mu);cursor:pointer;white-space:nowrap;transition:.25s}
+.item .ic{font-size:19px;width:22px;text-align:center}
+.item:hover{color:var(--tx);background:rgba(255,255,255,.07);transform:translateX(3px)}
+.item.on{color:#fff;background:linear-gradient(120deg,rgba(124,140,255,.35),rgba(45,226,197,.18));box-shadow:0 0 22px rgba(124,140,255,.35)}
+.item.on::before{content:"";position:absolute;left:-10px;top:20%;bottom:20%;width:4px;border-radius:4px;background:var(--c);box-shadow:0 0 12px var(--c)}
+.foot{margin-top:12px;padding:10px 8px 2px;font-size:11px;color:var(--mu);white-space:nowrap;opacity:0;transition:.3s}nav:hover .foot{opacity:1}
+main{margin-left:104px;padding:22px 22px 60px;max-width:1100px}
+h1{font-size:30px;margin:0;background:linear-gradient(90deg,var(--a),var(--c),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mu);margin:4px 0 18px}
+.card{background:var(--glass);border:1px solid var(--bd);border-radius:20px;padding:16px;margin-bottom:16px;backdrop-filter:blur(14px)}
+h2{font-size:16px;margin:0 0 10px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+label{font-size:12px;color:var(--mu);display:block;margin-bottom:4px}
+input,select{width:100%;padding:11px;border-radius:12px;border:1px solid var(--bd);background:rgba(0,0,0,.3);color:var(--tx);font:inherit}
+select option{background:#14182b}
+button{cursor:pointer;border:0;border-radius:12px;padding:12px 22px;font:inherit;font-weight:700;color:#06101a;background:linear-gradient(90deg,var(--c),var(--a));box-shadow:0 0 24px rgba(45,226,197,.35);margin-top:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.k{background:var(--glass);border:1px solid var(--bd);border-radius:18px;padding:14px;backdrop-filter:blur(14px)}.k small{color:var(--mu);display:block}.k b{font-size:30px}
+.A{color:var(--a)}.B{color:var(--b)}
+.badge{padding:3px 12px;border-radius:99px;font-weight:700;color:#06101a}.High{background:var(--r)}.Medium{background:var(--am)}.Low{background:var(--g)}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:8px 6px;border-bottom:1px solid var(--bd);text-align:left}
+.bar{height:7px;border-radius:5px;background:rgba(255,255,255,.1);margin-bottom:3px}.bar i{display:block;height:100%;border-radius:5px}
+.sl{display:grid;grid-template-columns:120px 1fr 40px;gap:8px;align-items:center;font-size:13px;margin:6px 0}input[type=range]{padding:0}
+ul{padding-left:18px}li{margin-bottom:8px}.chip{display:inline-block;margin:3px;padding:4px 12px;border-radius:99px;background:rgba(255,122,89,.2);border:1px solid var(--b)}
+.note{font-size:12px;color:var(--mu)}.pg{display:none}.pg.on{display:block;animation:in .4s}@keyframes in{from{opacity:0;transform:translateY(10px)}}
+#empty{text-align:center;padding:50px 10px;color:var(--mu)}
+@media(max-width:640px){main{margin-left:0;padding:14px 12px 100px}nav{top:auto;bottom:10px;left:10px;right:10px;transform:none;width:auto;display:flex;padding:6px;border-radius:20px}nav:hover{width:auto}.logo,.foot{display:none}.item{flex:1;justify-content:center;margin:0;padding:10px}.item span:last-child{display:none}.item.on::before{display:none}}
+</style></head><body>
+<div class="bg"><i></i><i></i><i></i></div><div class="grid"></div>
+<nav>
+  <div class="logo"><span>⚔️</span><span>FACE-OFF</span></div>
+  <div class="item on" data-p="home"><span class="ic">🏠</span><span>Compare</span></div>
+  <div class="item" data-p="scores"><span class="ic">🎯</span><span>Scores</span></div>
+  <div class="item" data-p="kw"><span class="ic">🔑</span><span>Keywords</span></div>
+  <div class="item" data-p="ins"><span class="ic">🧠</span><span>AI Insights</span></div>
+  <div class="foot">Competitor Analysis Agent v1.0</div>
+</nav>
+<main>
+<h1>Brand Face-Off</h1><p class="sub">Two brands. One verdict. Scored 0–100 with explainable weights.</p>
+
+<section class="pg on" id="home">
+<div class="card"><div class="row">
+<div><label>Your brand (A)</label><input id="a" value="Nike"></div>
+<div><label>Competitor (B)</label><input id="b" value="Adidas"></div>
+<div><label>Industry</label><select id="i"><option>Sportswear</option><option>Restaurants</option><option>Beauty</option><option>Electronics</option><option>Education</option><option>Hotels</option></select></div>
+<div><label>Location</label><input id="l" value="Chennai, India"></div></div>
+<button id="go">Run analysis ▶</button> <span class="note" id="msg"></span></div>
+<div id="empty" class="card">Enter two brands and run the analysis.</div>
+<div id="res" style="display:none"><div class="cards" id="sum"></div>
+<div class="g2"><div class="card"><h2>Radar</h2><div id="radar" style="text-align:center"></div><div class="note" style="text-align:center"><b class="A">● A</b> &nbsp; <b class="B">● B</b></div></div>
+<div class="card"><h2>Key metrics</h2><table id="mt"></table></div></div></div>
+</section>
+
+<section class="pg" id="scores"><div class="card"><h2>Category breakdown</h2><table id="tb"></table></div>
+<div class="card"><h2>Adjust weights</h2><div id="sl"></div><p class="note">Scores recalculate as you move the sliders.</p></div></section>
+
+<section class="pg" id="kw"><div class="card" id="kwb"></div></section>
+<section class="pg" id="ins"><div class="card"><h2>AI insights</h2><div id="ai"></div><ul id="il"></ul><p class="note">Every insight cites its metric. Set ANTHROPIC_API_KEY to add a Claude-written summary.</p></div></section>
+</main>
+<script>
+const $=id=>document.getElementById(id);let D=null,W=null,T;
+document.querySelectorAll(".item").forEach(e=>e.onclick=()=>{document.querySelectorAll(".item,.pg").forEach(x=>x.classList.remove("on"));e.classList.add("on");$(e.dataset.p).classList.add("on")});
+async function run(){$("msg").textContent="Agent working…";
+const r=await fetch("/api/analyze",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({a:$("a").value,b:$("b").value,industry:$("i").value,location:$("l").value,...(W?{weights:W}:{})})});
+D=await r.json();W=D.weights;$("msg").textContent="";draw()}
+function radar(){const C=150,R=100,N=7,pt=(v,i)=>{const t=-Math.PI/2+i*2*Math.PI/N;return[C+R*v/100*Math.cos(t),C+R*v/100*Math.sin(t)]};
+let g="";[25,50,75,100].forEach(l=>g+=`<polygon points="${D.cats.map((_,i)=>pt(l,i)).join(" ")}" fill="none" stroke="rgba(255,255,255,.15)"/>`);
+D.cats.forEach((c,i)=>{const[x,y]=pt(100,i),[a,b]=pt(124,i);g+=`<line x1="${C}" y1="${C}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,.12)"/><text x="${a}" y="${b}" font-size="10" fill="#9aa1c9" text-anchor="middle">${c.split(" ")[0]}</text>`});
+const p=(x,c)=>`<polygon points="${x.cats.map((v,i)=>pt(v,i)).join(" ")}" fill="${c}" fill-opacity=".25" stroke="${c}" stroke-width="2"/>`;
+return`<svg viewBox="0 0 300 300" style="max-width:340px;width:100%">${g}${p(D.a,"#7c8cff")}${p(D.b,"#ff7a59")}</svg>`}
+function draw(){$("empty").style.display="none";$("res").style.display="block";const{a,b}=D;
+$("sum").innerHTML=`<div class="k"><small>${a.name}</small><b class="A">${D.sa}</b></div><div class="k"><small>${b.name}</small><b class="B">${D.sb}</b></div><div class="k"><small>Gap score (A−B)</small><b>${D.gap>0?"+":""}${D.gap}</b></div><div class="k"><small>Threat from B</small><span class="badge ${D.threat}">${D.threat}</span><small>overlap ${D.overlap}%</small></div>`;
+$("radar").innerHTML=radar();
+$("mt").innerHTML=`<tr><th></th><th class="A">${a.name}</th><th class="B">${b.name}</th></tr>`+Object.keys(a.metrics).map(k=>`<tr><td>${k}</td><td>${a.metrics[k]}</td><td>${b.metrics[k]}</td></tr>`).join("");
+$("tb").innerHTML=`<tr><th>Category</th><th>Weight</th><th class="A">${a.name}</th><th class="B">${b.name}</th></tr>`+D.cats.map((c,i)=>`<tr><td>${c}</td><td>${W[i]}%</td><td><div class="bar"><i style="width:${a.cats[i]}%;background:var(--a)"></i></div>${a.cats[i]}</td><td><div class="bar"><i style="width:${b.cats[i]}%;background:var(--b)"></i></div>${b.cats[i]}</td></tr>`).join("");
+if(!document.activeElement||document.activeElement.type!="range")$("sl").innerHTML=D.cats.map((c,i)=>`<div class="sl"><span>${c}</span><input type="range" min="0" max="50" value="${W[i]}" data-i="${i}"><span id="w${i}">${W[i]}%</span></div>`).join("");
+$("kwb").innerHTML=`<h2>Keyword view</h2><div class="row" style="text-align:center"><div class="k"><small>Overlap</small><b>${D.overlap}%</b></div></div><p><b>Keyword gaps</b> (B ranks, A doesn't):</p>${D.gaps.map(k=>`<span class="chip">${k}</span>`).join("")}<p class="note">Cluster by intent: branded, service, location, informational.</p>`;
+$("ai").innerHTML=D.ai_summary?`<p><b>Claude summary:</b> ${D.ai_summary}</p>`:"";
+$("il").innerHTML=D.insights.map(t=>`<li>${t}</li>`).join("")}
+$("go").onclick=()=>{W=null;run()};
+$("sl").addEventListener("input",e=>{const i=e.target.dataset.i;if(i===undefined)return;W[i]=+e.target.value;$("w"+i).textContent=W[i]+"%";clearTimeout(T);T=setTimeout(run,250)});
+</script></body></html>
